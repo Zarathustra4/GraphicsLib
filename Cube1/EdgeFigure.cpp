@@ -21,3 +21,32 @@ EdgeFigure::EdgeFigure(int pointsNumber, int edgesNumber):
     pointsNumber(pointsNumber),
     edgesNumber(edgesNumber) 
 {}
+
+int EdgeFigure::getEdgesNumber() {
+    return edges.getSize();
+}
+
+Matrix EdgeFigure::getEdge(int index) {
+    int start = edges.getEdge(index)[0];
+    int end = edges.getEdge(index)[1];
+    Matrix edge(2, 3);
+
+    vector<long double> startPoint = points.getRow(start);
+    vector<long double> endPoint = points.getRow(end);
+
+    startPoint.pop_back();
+    endPoint.pop_back();
+
+    edge.setRow(0, startPoint);
+    edge.setRow(1, endPoint);
+
+    return edge;
+}
+
+Matrix EdgeFigure::getMatrix() {
+    return points;
+}
+
+void EdgeFigure::setMatrix(Matrix matrix) {
+    this->points = matrix;
+}

@@ -129,6 +129,7 @@
   <ItemGroup>
     <ClCompile Include="Cube1.cpp" />
     <ClCompile Include="EdgeFigure.cpp" />
+    <ClCompile Include="Edges.cpp" />
     <ClCompile Include="GraphicUtil.cpp" />
     <ClCompile Include="Matrix.cpp" />
     <ClCompile Include="MatrixUtil.cpp" />
@@ -138,6 +139,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EdgeFigure.h" />
+    <ClInclude Include="Edges.h" />
     <ClInclude Include="GraphicUtil.h" />
     <ClInclude Include="Matrix.h" />
     <ClInclude Include="MatrixUtil.h" />

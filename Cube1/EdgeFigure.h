@@ -18,6 +18,13 @@ public:
 
 	EdgeFigure(int pointsNumber, int edgesNumber);
 
-	
+	int getEdgesNumber();
+
+	//return matrix with shape 2x3 to being displayed
+	Matrix getEdge(int edgeIndex);  
+
+	Matrix getMatrix();
+
+	void setMatrix(Matrix matrix);
 };
 

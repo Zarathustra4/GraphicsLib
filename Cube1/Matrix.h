@@ -35,5 +35,7 @@ public:
 	long double get(int i, int j);
 
 	vector<vector<long double>> getMatrix();
+
+	vector<long double> getRow(int i);
 };
 

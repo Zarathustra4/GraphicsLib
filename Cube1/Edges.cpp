@@ -24,12 +24,13 @@ void Edges::addEdge(vector<int> edge) {
 	}
 
 	edges.push_back(edge);
+	size++;
 }
 
 vector<int> Edges::getEdge(int index) {
 	if (index < 0 or index >= edges.size()) {
 		std::cerr << "The index is incorrect!" << std::endl;
-		return;
+		return vector<int>();
 	}
 
 	return edges[index];

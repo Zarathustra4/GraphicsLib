@@ -27,7 +27,37 @@ GraphicUtil::GraphicUtil(int windowWidth, int windowHeight) :
 }
 
 void GraphicUtil::drawFigure(EdgeFigure figure) {
+	figure.setMatrix(
+		matrixUtil.matrixProduct(figure.getMatrix(), projectionMatrix)
+	);
 
+	//побудова полігона заданого вершинами F
+	glColor3d(1, 0, 0);//червоний колір
+	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	glLineWidth(3);
+	glBegin(GL_POLYGON);
+
+	long double x1, y1, x2, y2, screenX1, screenY1, screenX2, screenY2;
+	Matrix projectedPoints;
+	int size = figure.getEdgesNumber();
+	for (int i = 0; i < figure.getEdgesNumber(); i++) {
+		projectedPoints = figure.getEdge(i);
+
+		x1 = projectedPoints.get(0, 0);
+		y1 = projectedPoints.get(0, 1);
+
+		x2 = projectedPoints.get(1, 0);
+		y2 = projectedPoints.get(1, 1);
+		
+		screenX1 = c * x1 + cx;
+		screenY1 = c * y1 + cy;
+		screenX2 = c * x2 + cx;
+		screenY2 = c * y2 + cy;
+
+		glVertex2d(screenX1, screenY1);
+		glVertex2d(screenX2, screenY2);
+	}
+	glEnd();
 }
 
 /*

@@ -83,3 +83,10 @@ void Matrix::setRow(int i, vector<long double> row) {
         M[i][j] = row[j];
     }
 }
+
+vector<long double> Matrix::getRow(int i) {
+    if (i < 0 or i > M.size()) {
+        std::cerr << "The index out of range" << std::endl;
+    }
+    return M[i];
+}
