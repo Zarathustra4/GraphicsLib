@@ -6,15 +6,19 @@ class Edges
 {
 private:
 	vector<vector<int>> edges;
-	int edgesNumber;
+	int size;
 
 public:
+	Edges();
+
 	Edges(vector<vector<int>> edges);
 
-	Edges(int edgesNumber);
+	Edges(int size);
 
 	vector<int> getEdge(int index);
 
 	void addEdge(vector<int> edge);
+
+	int getSize();
 };
 

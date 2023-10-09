@@ -2,14 +2,19 @@
 #include <vector>
 #include <iostream>
 
+Edges::Edges():
+	size(0),
+	edges(vector<vector<int>>(0, vector<int>(2)))
+{}
+
 Edges::Edges(int edgesNumber):
-	edgesNumber(edgesNumber),
+	size(edgesNumber),
 	edges(vector<vector<int>>(edgesNumber, vector<int>(2)))
 {}
 
 Edges::Edges(vector<vector<int>> edges):
 	edges(edges),
-	edgesNumber(edges.size())
+	size(edges.size())
 {}
 
 void Edges::addEdge(vector<int> edge) {
@@ -28,4 +33,8 @@ vector<int> Edges::getEdge(int index) {
 	}
 
 	return edges[index];
+}
+
+int Edges::getSize() {
+	return size;
 }

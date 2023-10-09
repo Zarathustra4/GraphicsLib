@@ -1,4 +1,5 @@
 #include "Matrix.h"
+#include "Edges.h"
 #include <unordered_map>
 
 #pragma once
@@ -6,14 +7,14 @@ class EdgeFigure
 {
 private:
 	Matrix points;
-	Matrix edges;
+	Edges edges;
 	int pointsNumber;
 	int edgesNumber;
 public:
 
 	EdgeFigure();
 
-	EdgeFigure(Matrix points, Matrix edges);
+	EdgeFigure(Matrix points, Edges edges);
 
 	EdgeFigure(int pointsNumber, int edgesNumber);
 
