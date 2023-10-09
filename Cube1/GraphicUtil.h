@@ -18,6 +18,6 @@ public:
 	void buildImage(Matrix m);
 	void build3dSystem();
 	void display();
-	void drawFigure(EdgeFigure figure);
+	void drawFigure(EdgeFigure figure, char color = 'r');
 };
 

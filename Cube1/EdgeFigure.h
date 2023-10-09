@@ -26,5 +26,9 @@ public:
 	Matrix getMatrix();
 
 	void setMatrix(Matrix matrix);
+
+	Edges getEdges() {
+		return edges;
+	}
 };
 

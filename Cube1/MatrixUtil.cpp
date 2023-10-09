@@ -117,9 +117,9 @@ Matrix MatrixUtil::vectorMove(vector<long double> v) {
 	long double z = v[2];
 
 	moveMatrix.setRow(0, vector<long double>({ 1, 0, 0, 0 }));
-	moveMatrix.setRow(0, vector<long double>({ 0, 1, 0, 0 }));
-	moveMatrix.setRow(0, vector<long double>({ 0, 0, 1, 0 }));
-	moveMatrix.setRow(0, vector<long double>({ x, y, z, 1 }));
+	moveMatrix.setRow(1, vector<long double>({ 0, 1, 0, 0 }));
+	moveMatrix.setRow(2, vector<long double>({ 0, 0, 1, 0 }));
+	moveMatrix.setRow(3, vector<long double>({ x, y, z, 1 }));
 	
 	return moveMatrix;
 }

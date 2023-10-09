@@ -6,10 +6,21 @@
 #include "EdgeFigure.h"
 #include <vector>
 
+//TODO: use this enum to chose transformation
+enum Transformation {
+    rotateX,
+    rotateY,
+    rotateZ,
+    mirrorXY,
+    mirrorXZ,
+    mirrorYZ
+};
+
 using std::vector;
 
 const int WINDOW_WIDTH = 500;
 const int WINDOW_HEIGHT = 500;
+MatrixUtil matrixUtil = MatrixUtil();
 
 void setCubePoints(Matrix& cube) {
     cube.setRow(0, vector<long double>({ 2, 1, 2, 1 }));
@@ -51,13 +62,84 @@ EdgeFigure createCube() {
     return EdgeFigure(cubePoints, cubeEdges);
 }
 
+EdgeFigure rotateCubeAroundY(EdgeFigure figure) {
+    Matrix rotationMatrix = matrixUtil.rotateAroundY(90);
+
+    return EdgeFigure(
+        matrixUtil.matrixProduct(figure.getMatrix(), rotationMatrix),
+        figure.getEdges()
+    );
+}
+
+EdgeFigure rotateCubeAroundX(EdgeFigure figure) {
+    Matrix rotationMatrix = matrixUtil.rotateAroundX(90);
+
+    return EdgeFigure(
+        matrixUtil.matrixProduct(figure.getMatrix(), rotationMatrix),
+        figure.getEdges()
+    );
+}
+
+EdgeFigure rotateCubeAroundZ(EdgeFigure figure) {
+    Matrix rotationMatrix = matrixUtil.rotateAroundZ(-30);
+
+    return EdgeFigure(
+        matrixUtil.matrixProduct(figure.getMatrix(), rotationMatrix),
+        figure.getEdges()
+    );
+}
+
+EdgeFigure MirrorXY(EdgeFigure figure) {
+    Matrix rotationMatrix = matrixUtil.Mirroring_XY();
+
+    return EdgeFigure(
+        matrixUtil.matrixProduct(figure.getMatrix(), rotationMatrix),
+        figure.getEdges()
+    );
+}
+
+EdgeFigure MirrorXZ(EdgeFigure figure) {
+    Matrix rotationMatrix = matrixUtil.Mirroring_XZ();
+
+    return EdgeFigure(
+        matrixUtil.matrixProduct(figure.getMatrix(), rotationMatrix),
+        figure.getEdges()
+    );
+}
+
+EdgeFigure MirrorYZ(EdgeFigure figure) {
+    Matrix rotationMatrix = matrixUtil.Mirroring_YZ();
+
+    return EdgeFigure(
+        matrixUtil.matrixProduct(figure.getMatrix(), rotationMatrix),
+        figure.getEdges()
+    );
+}
+
+EdgeFigure Move(EdgeFigure figure, vector<long double> vec) {
+    Matrix rotationMatrix = matrixUtil.vectorMove(vec);
+
+    return EdgeFigure(
+        matrixUtil.matrixProduct(figure.getMatrix(), rotationMatrix),
+        figure.getEdges()
+    );
+}
+
 void display() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glLoadIdentity();
 
     GraphicUtil graphic_util = GraphicUtil(WINDOW_WIDTH, WINDOW_HEIGHT);
     graphic_util.build3dSystem();
-    graphic_util.drawFigure( createCube() );
+    
+    EdgeFigure cube = createCube();
+
+    graphic_util.drawFigure(cube);
+
+    graphic_util.drawFigure(rotateCubeAroundX(cube), 'b');
+
+    graphic_util.drawFigure(Move(cube, vector<long double> ({-2, -1, -2})), 'g');
+
     glFlush();
 }
 
@@ -69,9 +151,6 @@ int main(int argc, char** argv)
     glutInitWindowSize(WINDOW_WIDTH, WINDOW_HEIGHT);
     glutCreateWindow("OpenGL 3D Drawing");
     glEnable(GL_DEPTH_TEST);
-
-
-
 
     glutDisplayFunc(display);
     glutMainLoop();

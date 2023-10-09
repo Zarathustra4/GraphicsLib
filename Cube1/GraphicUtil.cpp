@@ -26,16 +26,24 @@ GraphicUtil::GraphicUtil(int windowWidth, int windowHeight) :
 	setProjectionMatrix(projectionMatrix);
 }
 
-void GraphicUtil::drawFigure(EdgeFigure figure) {
+void GraphicUtil::drawFigure(EdgeFigure figure, char color) {
 	figure.setMatrix(
 		matrixUtil.matrixProduct(figure.getMatrix(), projectionMatrix)
 	);
 
-	//побудова полігона заданого вершинами F
-	glColor3d(1, 0, 0);//червоний колір
+	if (color == 'r') {
+		glColor3d(1, 0, 0);//червоний колір
+	}
+	else if (color == 'b') {
+		glColor3d(0, 0, 1);
+	}
+	else if (color == 'g') {
+		glColor3d(0, 1, 0);
+	}
+	
 	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	glLineWidth(3);
-	glBegin(GL_POLYGON);
+	glBegin(GL_LINES);
 
 	long double x1, y1, x2, y2, screenX1, screenY1, screenX2, screenY2;
 	Matrix projectedPoints;
@@ -60,25 +68,6 @@ void GraphicUtil::drawFigure(EdgeFigure figure) {
 	glEnd();
 }
 
-/*
-void GraphicUtil::buildImage(Matrix matrix) {
-	long double x, y, screenX, screenY;
-
-	glColor3d(1, 0, 0); //червоний колір
-	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-	glLineWidth(3);
-	glBegin(GL_POLYGON);
-
-	for (int i = 0; i < matrix.getShape()[0]; i++) {
-		x = matrix.get(i, 0);
-		y = matrix.get(i, 1);
-		screenX = c * x + cx;
-		screenY = c * y + cy;
-		glVertex2d(screenX, screenY);
-	}
-	glEnd();
-}
-*/
 
 void GraphicUtil::build3dSystem() {
     glClearColor(1, 1, 1, 0);
