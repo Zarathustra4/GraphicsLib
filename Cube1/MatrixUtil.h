@@ -25,12 +25,16 @@ public:
 
 	static Matrix Mirroring_XZ(int n = 4, int m = 4);
 
-	static Matrix vectorMove(vector<long double> v);
+	static Matrix vectorMove(vector<double> v);
 
-	static Matrix vectorMove(long double x, long double y, long double z);
+	static Matrix vectorMove(double x, double y, double z);
 
 	static Matrix scale(double scalar);
 
-	static Matrix scaleWithoutMoving(double scalar, vector<long double> massCenter);
+	static Matrix scaleWithoutMoving(double scalar, vector<double> massCenter);
+
+	static Matrix rotateAroundEdge(double angle, vector<double> edge);
+
+	static Matrix mirrorOnPlane(Matrix plane);
 };
 

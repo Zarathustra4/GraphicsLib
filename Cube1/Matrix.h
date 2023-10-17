@@ -9,10 +9,10 @@ private:
 	int n; //rows
 	int m; //cols
 	vector<int> shape;
-	vector<vector<long double>> M; //the matrix itself
+	vector<vector<double>> M; //the matrix itself
 
 public:
-	Matrix(int n, int m, vector<vector<long double>> M); //user sets dimentionality and the matrix
+	Matrix(int n, int m, vector<vector<double>> M); //user sets dimentionality and the matrix
 
 	Matrix(int n, int m); //fills matrix by zeros
 
@@ -20,22 +20,22 @@ public:
 
 	~Matrix();
 
-	void setMatrix(vector<vector<long double>> M);
+	void setMatrix(vector<vector<double>> M);
 
 	vector<int> getShape();
 
-	void setValue(int i, int j, long double value);
+	void setValue(int i, int j, double value);
 
-	void setRow(int i, vector<long double> row);
+	void setRow(int i, vector<double> row);
 
 	void printMatrix();
 
-	void getMatrix(vector<vector<long double>>& M);
+	void getMatrix(vector<vector<double>>& M);
 
-	long double get(int i, int j);
+	double get(int i, int j);
 
-	vector<vector<long double>> getMatrix();
+	vector<vector<double>> getMatrix();
 
-	vector<long double> getRow(int i);
+	vector<double> getRow(int i);
 };
 

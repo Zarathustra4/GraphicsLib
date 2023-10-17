@@ -4,7 +4,7 @@
 
 using std::vector;
 
-Matrix::Matrix(int n, int m, vector<vector<long double>> M) :
+Matrix::Matrix(int n, int m, vector<vector<double>> M) :
     n(n),
     m(m),
     shape(vector<int>({ n, m })),
@@ -16,7 +16,7 @@ Matrix::Matrix(int n, int m) :
     n(n),
     m(m),
     shape(vector<int>({ n, m })),
-    M(vector<vector<long double>>(n, vector<long double>(m)))
+    M(vector<vector<double>>(n, vector<double>(m)))
 {
 }
 
@@ -24,7 +24,7 @@ Matrix::Matrix() :
     n(0),
     m(0),
     shape(vector<int>(2)),
-    M(vector<vector<long double>>())
+    M(vector<vector<double>>())
 {
 }
 
@@ -34,7 +34,7 @@ vector<int> Matrix::getShape() {
     return shape;
 }
 
-void Matrix::setValue(int i, int j, long double value) {
+void Matrix::setValue(int i, int j, double value) {
     if (i >= 0 && i < n && j >= 0 && j < m) {
         M[i][j] = value;
     }
@@ -43,7 +43,7 @@ void Matrix::setValue(int i, int j, long double value) {
     }
 }
 
-void Matrix::setMatrix(vector<vector<long double>> M) {
+void Matrix::setMatrix(vector<vector<double>> M) {
     this->M = M;
 }
 
@@ -56,19 +56,19 @@ void Matrix::printMatrix() {
     }
 }
 
-void Matrix::getMatrix(vector<vector<long double>>& M) {
+void Matrix::getMatrix(vector<vector<double>>& M) {
     M = this->M;
 }
 
-vector<vector<long double>> Matrix::getMatrix() {
+vector<vector<double>> Matrix::getMatrix() {
     return this->M;
 }
 
-long double Matrix::get(int i, int j) {
+double Matrix::get(int i, int j) {
     return M[i][j];
 }
 
-void Matrix::setRow(int i, vector<long double> row) {
+void Matrix::setRow(int i, vector<double> row) {
     if (row.size() != this->m) {
         std::cerr << "Length of the row differs from length of Matrix rows!!!\n";
         return;
@@ -84,7 +84,7 @@ void Matrix::setRow(int i, vector<long double> row) {
     }
 }
 
-vector<long double> Matrix::getRow(int i) {
+vector<double> Matrix::getRow(int i) {
     if (i < 0 or i > M.size()) {
         std::cerr << "The index out of range" << std::endl;
     }

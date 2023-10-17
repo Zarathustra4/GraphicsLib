@@ -31,13 +31,13 @@ public:
 		return edges;
 	}
 
-	std::vector<long double> getMassCenter() {
-		std::vector<long double> massCenter = std::vector<long double>(3);
+	std::vector<double> getMassCenter() {
+		std::vector<double> massCenter = std::vector<double>(3);
 		int pointsNumber = points.getShape()[0];
 
-		long double sumX = 0;
-		long double sumY = 0;
-		long double sumZ = 0;
+		double sumX = 0;
+		double sumY = 0;
+		double sumZ = 0;
 
 		for (int i = 0; i < pointsNumber; i++) {
 			sumX += points.get(i, 0);

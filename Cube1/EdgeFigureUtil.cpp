@@ -2,16 +2,16 @@
 
 
 void setCubePoints(Matrix& cube) {
-    cube.setRow(0, vector<long double>({ 2, 1, 2, 1 }));
-    cube.setRow(1, vector<long double>({ 3, 1, 2, 1 }));
-    cube.setRow(2, vector<long double>({ 3, 1.5, 2, 1 }));
-    cube.setRow(3, vector<long double>({ 2.5, 2, 2, 1 }));
-    cube.setRow(4, vector<long double>({ 2, 2, 2, 1 }));
-    cube.setRow(5, vector<long double>({ 2, 1, 1, 1 }));
-    cube.setRow(6, vector<long double>({ 3, 1, 1, 1 }));
-    cube.setRow(7, vector<long double>({ 3, 2, 1, 1 }));
-    cube.setRow(8, vector<long double>({ 2, 2, 1, 1 }));
-    cube.setRow(9, vector<long double>({ 3, 2, 1.5, 1 }));
+    cube.setRow(0, vector<double>({ 2, 1, 2, 1 }));
+    cube.setRow(1, vector<double>({ 3, 1, 2, 1 }));
+    cube.setRow(2, vector<double>({ 3, 1.5, 2, 1 }));
+    cube.setRow(3, vector<double>({ 2.5, 2, 2, 1 }));
+    cube.setRow(4, vector<double>({ 2, 2, 2, 1 }));
+    cube.setRow(5, vector<double>({ 2, 1, 1, 1 }));
+    cube.setRow(6, vector<double>({ 3, 1, 1, 1 }));
+    cube.setRow(7, vector<double>({ 3, 2, 1, 1 }));
+    cube.setRow(8, vector<double>({ 2, 2, 1, 1 }));
+    cube.setRow(9, vector<double>({ 3, 2, 1.5, 1 }));
 }
 
 EdgeFigure EdgeFigureUtil::getCube() {

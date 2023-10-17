@@ -7,15 +7,10 @@
 #include "EdgeFigureUtil.h"
 #include <vector>
 
-//TODO: use this enum to chose transformation
-enum Transformation {
-    rotateX,
-    rotateY,
-    rotateZ,
-    mirrorXY,
-    mirrorXZ,
-    mirrorYZ
-};
+/*
+    Future TODOs :
+        Maybe refactor Util classes to just files with functions.
+*/
 
 using std::vector;
 
@@ -46,13 +41,24 @@ void keyboard(unsigned char key, int x0, int y0) {
     switch (key){
     case '1':
         graphic_util.drawFigure(EdgeFigureUtil::scale(cube, 2), 'b');
-        glFlush();
         break;
     case '2':
-        graphic_util.drawFigure(EdgeFigureUtil::move(cube, vector<long double>({ -2, -1, -2 })), 'g');
-        glFlush();
+        graphic_util.drawFigure(EdgeFigureUtil::rotateAroundYX(cube, 90, 90), 'g');
+        break;
+    case '3':
+        graphic_util.drawFigure(EdgeFigureUtil::rotateAroundXY(cube, 90, 90), 'b');
+        break;
+    case '4':
+        graphic_util.drawFigure(EdgeFigureUtil::rotateAroundEdge(cube, 90, 1), 'g');
+        break;
+    case '5':
+        graphic_util.drawFigure(EdgeFigureUtil::rotateAroundDiagonal(cube, 90., 4, 6), 'b');
+        break;
+    case '6':
+        graphic_util.drawFigure(EdgeFigureUtil::mirrorAtPlane(cube, 2, 3, 9), 'g');
         break;
     }
+    glFlush();
 }
 
 int main(int argc, char** argv)
