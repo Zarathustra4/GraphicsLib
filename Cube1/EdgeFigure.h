@@ -30,5 +30,25 @@ public:
 	Edges getEdges() {
 		return edges;
 	}
+
+	std::vector<long double> getMassCenter() {
+		std::vector<long double> massCenter = std::vector<long double>(3);
+		int pointsNumber = points.getShape()[0];
+
+		long double sumX = 0;
+		long double sumY = 0;
+		long double sumZ = 0;
+
+		for (int i = 0; i < pointsNumber; i++) {
+			sumX += points.get(i, 0);
+			sumY += points.get(i, 1);
+			sumZ += points.get(i, 2);
+		}
+
+		massCenter[0] = sumX / pointsNumber;
+		massCenter[1] = sumY / pointsNumber;
+		massCenter[2] = sumZ / pointsNumber;
+		return massCenter;
+	}
 };
 

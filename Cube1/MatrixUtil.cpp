@@ -128,9 +128,36 @@ Matrix MatrixUtil::vectorMove(long double x, long double y, long double z) {
 	Matrix moveMatrix = Matrix(4, 4);
 
 	moveMatrix.setRow(0, vector<long double>({ 1, 0, 0, 0 }));
-	moveMatrix.setRow(0, vector<long double>({ 0, 1, 0, 0 }));
-	moveMatrix.setRow(0, vector<long double>({ 0, 0, 1, 0 }));
-	moveMatrix.setRow(0, vector<long double>({ x, y, z, 1 }));
+	moveMatrix.setRow(1, vector<long double>({ 0, 1, 0, 0 }));
+	moveMatrix.setRow(2, vector<long double>({ 0, 0, 1, 0 }));
+	moveMatrix.setRow(3, vector<long double>({ x, y, z, 1 }));
 
 	return moveMatrix;
+}
+
+Matrix MatrixUtil::scale(double scalar) {
+	Matrix moveMatrix = Matrix(4, 4);
+
+	moveMatrix.setRow(0, vector<long double>({ scalar,	0,		0,		0 }));
+	moveMatrix.setRow(1, vector<long double>({ 0,		scalar, 0,		0 }));
+	moveMatrix.setRow(2, vector<long double>({ 0,		0,		scalar, 0 }));
+	moveMatrix.setRow(3, vector<long double>({ 0,		0,		0,		1 }));
+
+	return moveMatrix;
+}
+
+Matrix MatrixUtil::scaleWithoutMoving(double scalar, vector<long double> massCenter) {
+	vector<long double> moveVector = vector<long double>(3);
+
+	for (int i = 0; i < 3; i++) {
+		moveVector[i] = -massCenter[i];
+	}
+
+	Matrix moveMatrix = MatrixUtil::vectorMove(moveVector);
+	Matrix scaleMatrix = MatrixUtil::scale(scalar);
+	Matrix returnMoveMatrix = MatrixUtil::vectorMove(massCenter);
+
+	Matrix transMatrix = MatrixUtil::matrixProduct(moveMatrix, scaleMatrix);
+
+	return MatrixUtil::matrixProduct(transMatrix, returnMoveMatrix);
 }

@@ -1,4 +1,6 @@
 #include "EdgeFigure.h"
+#include "MatrixUtil.h"
+#include "Edges.h"
 
 #pragma once
 
@@ -6,71 +8,79 @@ class EdgeFigureUtil
 {
 public:
 	//Cube from lab 1
-	EdgeFigure getCube();
+	static EdgeFigure getCube();
 
-    EdgeFigure rotateCubeAroundY(EdgeFigure figure) {
-        Matrix rotationMatrix = matrixUtil.rotateAroundY(90);
+    static EdgeFigure rotateCubeAroundY(EdgeFigure figure) {
+        Matrix rotationMatrix = MatrixUtil::rotateAroundY(90);
 
         return EdgeFigure(
-            matrixUtil.matrixProduct(figure.getMatrix(), rotationMatrix),
+            MatrixUtil::matrixProduct(figure.getMatrix(), rotationMatrix),
             figure.getEdges()
         );
     }
 
-    EdgeFigure rotateCubeAroundX(EdgeFigure figure) {
-        Matrix rotationMatrix = matrixUtil.rotateAroundX(90);
+    static EdgeFigure rotateCubeAroundX(EdgeFigure figure) {
+        Matrix rotationMatrix = MatrixUtil::rotateAroundX(90);
 
         return EdgeFigure(
-            matrixUtil.matrixProduct(figure.getMatrix(), rotationMatrix),
+            MatrixUtil::matrixProduct(figure.getMatrix(), rotationMatrix),
             figure.getEdges()
         );
     }
 
-    EdgeFigure rotateCubeAroundZ(EdgeFigure figure) {
-        Matrix rotationMatrix = matrixUtil.rotateAroundZ(-30);
+    static EdgeFigure rotateCubeAroundZ(EdgeFigure figure) {
+        Matrix rotationMatrix = MatrixUtil::rotateAroundZ(-30);
 
         return EdgeFigure(
-            matrixUtil.matrixProduct(figure.getMatrix(), rotationMatrix),
+            MatrixUtil::matrixProduct(figure.getMatrix(), rotationMatrix),
             figure.getEdges()
         );
     }
 
-    EdgeFigure MirrorXY(EdgeFigure figure) {
-        Matrix rotationMatrix = matrixUtil.Mirroring_XY();
+    static EdgeFigure mirrorXY(EdgeFigure figure) {
+        Matrix mirrorMatrix = MatrixUtil::Mirroring_XY();
 
         return EdgeFigure(
-            matrixUtil.matrixProduct(figure.getMatrix(), rotationMatrix),
+            MatrixUtil::matrixProduct(figure.getMatrix(), mirrorMatrix),
             figure.getEdges()
         );
     }
 
-    EdgeFigure MirrorXZ(EdgeFigure figure) {
-        Matrix rotationMatrix = matrixUtil.Mirroring_XZ();
+    static EdgeFigure mirrorXZ(EdgeFigure figure) {
+        Matrix mirrorMatrix = MatrixUtil::Mirroring_XZ();
 
         return EdgeFigure(
-            matrixUtil.matrixProduct(figure.getMatrix(), rotationMatrix),
+            MatrixUtil::matrixProduct(figure.getMatrix(), mirrorMatrix),
             figure.getEdges()
         );
     }
 
-    EdgeFigure MirrorYZ(EdgeFigure figure) {
-        Matrix rotationMatrix = matrixUtil.Mirroring_YZ();
+    static EdgeFigure mirrorYZ(EdgeFigure figure) {
+        Matrix mirrorMatrix = MatrixUtil::Mirroring_YZ();
 
         return EdgeFigure(
-            matrixUtil.matrixProduct(figure.getMatrix(), rotationMatrix),
+            MatrixUtil::matrixProduct(figure.getMatrix(), mirrorMatrix),
             figure.getEdges()
         );
     }
 
-    EdgeFigure Move(EdgeFigure figure, vector<long double> vec) {
-        Matrix rotationMatrix = matrixUtil.vectorMove(vec);
+    static EdgeFigure move(EdgeFigure figure, vector<long double> vec) {
+        Matrix moveMatrix = MatrixUtil::vectorMove(vec);
 
         return EdgeFigure(
-            matrixUtil.matrixProduct(figure.getMatrix(), rotationMatrix),
+            MatrixUtil::matrixProduct(figure.getMatrix(), moveMatrix),
             figure.getEdges()
         );
     }
 
+    static EdgeFigure scale(EdgeFigure figure, double scalar) {
+        vector<long double> massCenter = figure.getMassCenter();
+        Matrix scaleMatrix = MatrixUtil::scaleWithoutMoving(scalar, massCenter);
 
+        return EdgeFigure(
+            MatrixUtil::matrixProduct(figure.getMatrix(), scaleMatrix),
+            figure.getEdges()
+        );
+    }
 };
 
