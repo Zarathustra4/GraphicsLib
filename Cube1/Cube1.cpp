@@ -49,10 +49,10 @@ void keyboard(unsigned char key, int x0, int y0) {
         graphic_util.drawFigure(EdgeFigureUtil::rotateAroundXY(cube, 90, 90), 'b');
         break;
     case '4':
-        graphic_util.drawFigure(EdgeFigureUtil::rotateAroundEdge(cube, 90, 1), 'g');
+        graphic_util.drawFigure(EdgeFigureUtil::rotateAroundEdge(cube, 90, 0), 'g');
         break;
     case '5':
-        graphic_util.drawFigure(EdgeFigureUtil::rotateAroundDiagonal(cube, 90., 4, 6), 'b');
+        graphic_util.drawFigure(EdgeFigureUtil::rotateAroundDiagonal(cube, 30., 4, 6), 'b');
         break;
     case '6':
         graphic_util.drawFigure(EdgeFigureUtil::mirrorAtPlane(cube, 2, 3, 9), 'g');

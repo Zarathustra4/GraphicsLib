@@ -112,9 +112,7 @@ public:
         vector<double> a = figure.getEdge(edgeIndex).getRow(0);
         vector<double> b = figure.getEdge(edgeIndex).getRow(1);
 
-        vector<double> edge = vector<double>({ b[0] - a[0], b[1] - a[1], b[2] - a[2] });
-
-        Matrix transMatrix = MatrixUtil::rotateAroundEdge(angle, edge);
+        Matrix transMatrix = MatrixUtil::rotateAroundEdge(angle, a, b);
 
         return EdgeFigure(
             MatrixUtil::matrixProduct(figure.getMatrix(), transMatrix),
@@ -129,7 +127,7 @@ public:
 
         vector<double> diagonal = vector<double>({ b[0] - a[0], b[1] - a[1], b[2] - a[2] });
 
-        Matrix transMatrix = MatrixUtil::rotateAroundEdge(angle, diagonal);
+        Matrix transMatrix = MatrixUtil::rotateAroundEdge(angle, a, b);
 
         return EdgeFigure(
             MatrixUtil::matrixProduct(figure.getMatrix(), transMatrix),
@@ -147,7 +145,12 @@ public:
         plane.setRow(1, b);
         plane.setRow(2, c);
 
-        return EdgeFigure();
+        Matrix transMatrix = MatrixUtil::mirrorOnPlane(plane);
+
+        return EdgeFigure(
+            MatrixUtil::matrixProduct(figure.getMatrix(), transMatrix),
+            figure.getEdges()
+        );
     }
 };
 

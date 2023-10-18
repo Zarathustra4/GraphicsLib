@@ -48,6 +48,7 @@ void Matrix::setMatrix(vector<vector<double>> M) {
 }
 
 void Matrix::printMatrix() {
+    std::cout << "------------------------" << std::endl;
     for (int i = 0; i < n; ++i) {
         for (int j = 0; j < m; ++j) {
             std::cout << M[i][j] << "\t";

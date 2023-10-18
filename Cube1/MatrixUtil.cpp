@@ -20,7 +20,6 @@ void multiply(Matrix A, Matrix B, Matrix& C) {
 	}
 }
 
-
 vector<double> normalize(vector<double> vec) {
 	double length;
 	double sum = 0;
@@ -40,6 +39,35 @@ vector<double> normalize(vector<double> vec) {
 
 	return normVec;
 }
+
+vector<double> crossProduct(vector<double> a, vector<double> b) {
+	vector <double> c = vector<double>(3);
+
+	c[0] = a[1] * b[2] - a[2] * b[1];
+	c[1] = a[2] * b[0] - a[0] * b[2];
+	c[2] = a[0] * b[1] - a[1] * b[0];
+
+	return c;
+}
+
+vector <double> getNormalOfPlane(Matrix plane) {
+	vector<double> a = vector<double>({
+			plane.get(1, 0) - plane.get(0, 0),
+			plane.get(1, 1) - plane.get(0, 1),
+			plane.get(1, 2) - plane.get(0, 2)
+		});
+	
+	vector<double> b = vector<double>({
+			plane.get(2, 0) - plane.get(0, 0),
+			plane.get(2, 1) - plane.get(0, 1),
+			plane.get(2, 2) - plane.get(0, 2)
+		});
+
+	return crossProduct(a, b); 
+}
+
+//////////////////////////////////////////////////////////////////////////
+
 
 Matrix MatrixUtil::matrixProduct(Matrix A, Matrix B) {
 	vector<int> shapeA = A.getShape();
@@ -79,8 +107,10 @@ Matrix MatrixUtil::identityMatrix(int n, int m) {
 	return Matrix(n, m, matrixI);
 }
 
-Matrix MatrixUtil::rotateAroundY(double angle, int n, int m) {
-	angle = angle * PI / 180;
+Matrix MatrixUtil::rotateAroundY(double angle, bool degrees, int n, int m) {
+	if (degrees) {
+		angle = angle * PI / 180;
+	}
 
 	Matrix rotationMatrix = Matrix(n, m);
 	rotationMatrix.setRow(0, vector<double>({ cos(angle),	0., -sin(angle),	0. }));
@@ -90,9 +120,10 @@ Matrix MatrixUtil::rotateAroundY(double angle, int n, int m) {
 	return rotationMatrix;
 }
 
-Matrix MatrixUtil::rotateAroundX(double angle, int n, int m) {
-	angle = angle * PI / 180;
-
+Matrix MatrixUtil::rotateAroundX(double angle, bool degrees, int n, int m) {
+	if (degrees) {
+		angle = angle * PI / 180;
+	}
 	Matrix rotationMatrix = Matrix(n, m);
 	rotationMatrix.setRow(0, vector<double>({ 1,	0.,			0,			0. }));
 	rotationMatrix.setRow(1, vector<double>({ 0,	cos(angle),	sin(angle),	0. }));
@@ -101,9 +132,10 @@ Matrix MatrixUtil::rotateAroundX(double angle, int n, int m) {
 	return rotationMatrix;
 }
 
-Matrix MatrixUtil::rotateAroundZ(double angle, int n, int m) {
-	angle = angle * PI / 180;
-
+Matrix MatrixUtil::rotateAroundZ(double angle, bool degrees, int n, int m) {
+	if (degrees) {
+		angle = angle * PI / 180;
+	}
 	Matrix rotationMatrix = Matrix(n, m);
 	rotationMatrix.setRow(0, vector<double>({ cos(angle),	sin(angle),	0,	0.}));
 	rotationMatrix.setRow(1, vector<double>({ -sin(angle),	cos(angle),	0,	0. }));
@@ -191,42 +223,38 @@ Matrix MatrixUtil::scaleWithoutMoving(double scalar, vector<double> massCenter) 
 	return MatrixUtil::matrixProduct(transMatrix, returnMoveMatrix);
 }
 
-Matrix MatrixUtil::rotateAroundEdge(double angle, vector<double> edge) {
+Matrix MatrixUtil::rotateAroundEdge(double angle, vector<double> a, vector<double> b) {
 	//edge = normalize(edge);
+
+	vector<double> edge = vector<double>({ b[0] - a[0], b[1] - a[1], b[2] - a[2] });
 
 	const double nx = edge[0];
 	const double ny = edge[1];
 	const double nz = edge[2];
 
-	vector<double> returnVector = edge;
-	double alfa = 0, beta = 0;
+	double alfa = 0, beta = 90;
 
-	if (nz) {
-		alfa = atan(ny / nz);
-	}
-	if (ny* ny + nz * nz) {
-		beta = atan(nx / (sqrt(ny * ny + nz * nz)));
-	}
-	
+	alfa = atan2(ny, nz);
+	beta = atan2(nx, (sqrt(ny * ny + nz * nz)));
 
-	returnVector[0] *= -1; returnVector[1] *= -1; returnVector[2] *= -1;
 	
-	Matrix t1 = MatrixUtil::vectorMove(edge);
+	Matrix t1 = MatrixUtil::vectorMove(
+		vector<double>({-a[0], -a[1], -a[2]})
+	);
 
 	Matrix t2 = MatrixUtil::matrixProduct(
-		MatrixUtil::rotateAroundX(alfa),
-		MatrixUtil::rotateAroundY(-beta)
+		MatrixUtil::rotateAroundX(alfa, false),
+		MatrixUtil::rotateAroundY(-beta, false)
 	);
 
 	Matrix t3 = MatrixUtil::rotateAroundZ(angle);
 
 	Matrix t4 = MatrixUtil::matrixProduct(
-		MatrixUtil::rotateAroundY(beta),
-		MatrixUtil::rotateAroundX(-alfa)
+		MatrixUtil::rotateAroundY(beta, false),
+		MatrixUtil::rotateAroundX(-alfa, false)
 	);
 
-	Matrix t5 = MatrixUtil::vectorMove(returnVector);
-
+	Matrix t5 = MatrixUtil::vectorMove(a);
 
 	Matrix transMatrix = MatrixUtil::matrixProduct(t1, t2);
 	transMatrix = MatrixUtil::matrixProduct(transMatrix, t3);
@@ -237,13 +265,15 @@ Matrix MatrixUtil::rotateAroundEdge(double angle, vector<double> edge) {
 
 
 Matrix MatrixUtil::mirrorOnPlane(Matrix plane) {
+	plane.printMatrix();
+
 	vector<double> center = vector<double>(3);
 
 	double sumX = 0, sumY = 0, sumZ = 0;
 	for (int i = 0; i < 3; i++) {
-		sumX += plane.get(0, i);
-		sumY += plane.get(1, i);
-		sumZ += plane.get(2, i);
+		sumX += plane.get(i, 0);
+		sumY += plane.get(i, 1);
+		sumZ += plane.get(i, 2);
 	}
 	center[0] = sumX / 3; 
 	center[1] = sumY / 3;
@@ -253,7 +283,45 @@ Matrix MatrixUtil::mirrorOnPlane(Matrix plane) {
 		-center[0], -center[1], -center[2]
 		});
 
-	Matrix t1 = MatrixUtil::vectorMove(moveVec);
-	//TODO complete making tranformation matrix
 
+	vector<double> normal = getNormalOfPlane(plane);
+
+	const double nx = normal[0];
+	const double ny = normal[1];
+	const double nz = normal[2];
+
+	double alfa = 0, beta = 90;
+
+	alfa = atan2(ny, nz);
+	
+	beta = atan2(nx, (sqrt(ny * ny + nz * nz)));
+	
+
+	Matrix t1 = MatrixUtil::vectorMove(moveVec);
+	t1.printMatrix();
+
+	Matrix t2 = MatrixUtil::matrixProduct(
+		MatrixUtil::rotateAroundX(alfa, false),
+		MatrixUtil::rotateAroundY(-beta, false)
+	);
+	t2.printMatrix();
+
+	Matrix t3 = MatrixUtil::Mirroring_XY();
+	t3.printMatrix();
+
+	Matrix t4 = MatrixUtil::matrixProduct(
+		MatrixUtil::rotateAroundY(beta, false),
+		MatrixUtil::rotateAroundX(-alfa, false)
+	);
+	t4.printMatrix();
+
+	Matrix t5 = MatrixUtil::vectorMove(center);
+	t5.printMatrix();
+
+	Matrix resultMatrix = MatrixUtil::matrixProduct(t1, t2);
+	resultMatrix = MatrixUtil::matrixProduct(resultMatrix, t3);
+	resultMatrix = MatrixUtil::matrixProduct(resultMatrix, t4);
+	resultMatrix = MatrixUtil::matrixProduct(resultMatrix, t5);
+
+	return resultMatrix;
 }

@@ -13,11 +13,11 @@ public:
 
 	static Matrix identityMatrix(int n, int m);
 
-	static Matrix rotateAroundY(double angle, int n = 4, int m = 4);
+	static Matrix rotateAroundY(double angle, bool degrees = true, int n = 4, int m = 4);
 
-	static Matrix rotateAroundX(double angle, int n = 4, int m = 4);
+	static Matrix rotateAroundX(double angle, bool degrees = true, int n = 4, int m = 4);
 
-	static Matrix rotateAroundZ(double angle, int n = 4, int m = 4);
+	static Matrix rotateAroundZ(double angle, bool degrees = true, int n = 4, int m = 4);
 
 	static Matrix Mirroring_XY(int n = 4, int m = 4);
 
@@ -33,7 +33,7 @@ public:
 
 	static Matrix scaleWithoutMoving(double scalar, vector<double> massCenter);
 
-	static Matrix rotateAroundEdge(double angle, vector<double> edge);
+	static Matrix rotateAroundEdge(double angle, vector<double> a, vector<double> b);
 
 	static Matrix mirrorOnPlane(Matrix plane);
 };
