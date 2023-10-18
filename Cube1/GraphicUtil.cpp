@@ -9,10 +9,10 @@ Matrix setProjectionMatrix(Matrix& projectionMatrix) {
 	double phi, teta;
 	phi = -29 * Pi / 180; teta = 26 * Pi / 180;
 
-	projectionMatrix.setRow(0, vector<long double>({ cos(phi),	sin(phi) * sin(teta),	0, 0 }));
-	projectionMatrix.setRow(1, vector<long double>({ 0,			cos(teta),				0, 0 }));
-	projectionMatrix.setRow(2, vector<long double>({ sin(phi), -cos(phi) * sin(teta),	0, 0 }));
-	projectionMatrix.setRow(3, vector<long double>({ 0,			0,						0, 1 }));
+	projectionMatrix.setRow(0, vector<double>({ cos(phi),	sin(phi) * sin(teta),	0, 0 }));
+	projectionMatrix.setRow(1, vector<double>({ 0,			cos(teta),				0, 0 }));
+	projectionMatrix.setRow(2, vector<double>({ sin(phi), -cos(phi) * sin(teta),	0, 0 }));
+	projectionMatrix.setRow(3, vector<double>({ 0,			0,						0, 1 }));
 
 	return projectionMatrix;
 }
@@ -45,7 +45,7 @@ void GraphicUtil::drawFigure(EdgeFigure figure, char color) {
 	glLineWidth(3);
 	glBegin(GL_LINES);
 
-	long double x1, y1, x2, y2, screenX1, screenY1, screenX2, screenY2;
+	double x1, y1, x2, y2, screenX1, screenY1, screenX2, screenY2;
 	Matrix projectedPoints;
 	int size = figure.getEdgesNumber();
 	for (int i = 0; i < figure.getEdgesNumber(); i++) {
@@ -76,10 +76,10 @@ void GraphicUtil::build3dSystem() {
     gluOrtho2D(0.0, windowWidth, 0.0, windowHeight);
 
     Matrix axisMatrix(4, 4);
-    axisMatrix.setRow(0, vector<long double>({ 0,0,0,1 }));
-    axisMatrix.setRow(1, vector<long double>({ 7,0,0,1 }));
-    axisMatrix.setRow(2, vector<long double>({ 0,7,0,1 }));
-    axisMatrix.setRow(3, vector<long double>({ 0,0,7,1 }));
+    axisMatrix.setRow(0, vector<double>({ 0,0,0,1 }));
+    axisMatrix.setRow(1, vector<double>({ 7,0,0,1 }));
+    axisMatrix.setRow(2, vector<double>({ 0,7,0,1 }));
+    axisMatrix.setRow(3, vector<double>({ 0,0,7,1 }));
 
     Matrix projectedAxisMatrix(4, 4);
     Matrix screenAxisMatrix(4, 4);

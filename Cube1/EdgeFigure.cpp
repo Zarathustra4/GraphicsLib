@@ -31,8 +31,8 @@ Matrix EdgeFigure::getEdge(int index) {
     int end = edges.getEdge(index)[1];
     Matrix edge(2, 3);
 
-    vector<long double> startPoint = points.getRow(start);
-    vector<long double> endPoint = points.getRow(end);
+    vector<double> startPoint = points.getRow(start);
+    vector<double> endPoint = points.getRow(end);
 
     startPoint.pop_back();
     endPoint.pop_back();
