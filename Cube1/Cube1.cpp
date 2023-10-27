@@ -3,10 +3,14 @@
 #include <iostream>
 #include <GL/glut.h>
 #include <math.h>
+#include "GraphicUtil.h"
+#include "EdgeFigureUtil.h"
+#include "GraphicDrawer3D.h"
 
 //------------------КОНСТАНТИ ТА ГЛОБАЛЬНІ ЗМІННІ-------------------------
 
-int Width = 800, Height = 800; //парметри вікна виводу
+const int WIDTH = 800, HEIGHT = 800; //парметри вікна виводу
+GraphicUtil GRAPHIC_U = GraphicUtil(WIDTH, HEIGHT);
 #define Pi  3.1415926535897932384
 
 //-------------------Координатні осі--------------------------------------
@@ -34,28 +38,27 @@ void coordinate_axis(void)
 void keyboard(unsigned char key, int x0, int y0)
 {
 	//-----------функція,  викликається натиском клавіші "x "
-
-	if (key == 'x')
+	switch (key)
 	{
+	case 'x':
 		glRotated(10, 1, 0, 0);//поворот простору навколо осі Ox
-		glutPostRedisplay();// оновити вікно
-	}
-	//-----------функція,  викликається натиском клавіші "y "
-
-	if (key == 'y')
-	{
-
+		break;
+	case 'y':
 		glRotated(10, 0, 1, 0); //поворот простору навколо осі Oy
-		glutPostRedisplay();// оновити вікно
-	}
-	//-----------функція,  викликається натиском клавіші "z "
-
-	if (key == 'z')
-	{
+		break;
+	case 'z':
 		glRotated(10, 0, 0, 1); //поворот простору навколо осі Oz
-		glutPostRedisplay();// оновити вікно
+		break;
+	case '1':
+		GraphicDrawer3D::drawEdgeFigure(
+			EdgeFigureUtil::getCube()
+		);
+		break;
+	default:
+		break;
 	}
-
+	
+	glutPostRedisplay();// оновити вікно
 }
 
 //Управління виводом на екран!!!!!!!!!!!!!!!!!!!!!!!!!!!!!----------------
@@ -65,9 +68,11 @@ void display(void) {
 
 	coordinate_axis(); //відобразити координатні осі
 
-
 	glColor3d(1, 0, 0);
-	glutSolidSphere(1, 50, 50);//сфера
+	GraphicDrawer3D::drawEdgeFigure(
+		EdgeFigureUtil::getCube()
+	);
+	//glutSolidSphere(1, 50, 50);//сфера
 
 	//=======================================================================
 	glutSwapBuffers();
@@ -106,11 +111,11 @@ void scene(void)
 
 
 //Ініціалізація  GLUT-додатку!!!!!!!!!!!!!!!!!----------------------------------
-void main(int argc, char** argv)
+int main(int argc, char** argv)
 {
 	glutInit(&argc, argv); //ф-я здійснює необхідні початкові значення для побудови вікна додатку
 	glutInitWindowPosition(0, 0); //положення вікна
-	glutInitWindowSize(Width, Height); //розмір вікна
+	glutInitWindowSize(WIDTH, HEIGHT); //розмір вікна
 	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGB);// режими відображення інформації (вікно з: буфером глибини, подвійним буфером, режим RGB роботи з кольором)
 	glutCreateWindow("glut_3D"); //назва 
 
@@ -120,6 +125,8 @@ void main(int argc, char** argv)
 	glutKeyboardFunc(keyboard); //вказується що ф-я Keyboard(яка опрацьовує виклики із клавіатури) буде викликатися при перемальовці вікні
 
 	glutMainLoop();// Основний цикл GLUT
+
+	return 0;
 }
 
 

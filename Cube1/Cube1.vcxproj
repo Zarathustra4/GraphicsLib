@@ -131,6 +131,7 @@
     <ClCompile Include="EdgeFigure.cpp" />
     <ClCompile Include="EdgeFigureUtil.cpp" />
     <ClCompile Include="Edges.cpp" />
+    <ClCompile Include="GraphicDrawer3D.cpp" />
     <ClCompile Include="GraphicUtil.cpp" />
     <ClCompile Include="Matrix.cpp" />
     <ClCompile Include="MatrixUtil.cpp" />
@@ -139,6 +140,7 @@
     <ClInclude Include="EdgeFigure.h" />
     <ClInclude Include="EdgeFigureUtil.h" />
     <ClInclude Include="Edges.h" />
+    <ClInclude Include="GraphicDrawer3D.h" />
     <ClInclude Include="GraphicUtil.h" />
     <ClInclude Include="Matrix.h" />
     <ClInclude Include="MatrixUtil.h" />
