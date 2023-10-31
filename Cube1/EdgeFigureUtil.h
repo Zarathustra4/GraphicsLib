@@ -10,6 +10,8 @@ public:
 	//Cube from lab 1
 	static EdgeFigure getCube();
 
+    static EdgeFigure getPiramid();
+
     static EdgeFigure rotateAroundY(EdgeFigure figure) {
         Matrix rotationMatrix = MatrixUtil::rotateAroundY(90);
 

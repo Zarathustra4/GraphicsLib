@@ -14,6 +14,31 @@ void setCubePoints(Matrix& cube) {
     cube.setRow(9, vector<double>({ 3, 2, 1.5, 1 }));
 }
 
+void setPiramidPoints(Matrix& piramid) {
+    piramid.setRow(0, vector<double>({ .5,  -.5,    0, 1 }));
+    piramid.setRow(1, vector<double>({ .5,  .5,     0, 1 }));
+    piramid.setRow(2, vector<double>({ -.5, .5,     0, 1 }));
+    piramid.setRow(3, vector<double>({ -.5, -.5,    0, 1 }));
+    piramid.setRow(4, vector<double>({ 0,   0,      1, 1 }));
+}
+
+EdgeFigure EdgeFigureUtil::getPiramid() {
+    Matrix piramidPoints(5, 4);
+    setPiramidPoints(piramidPoints);
+
+    Edges piramidEdges = Edges();
+    piramidEdges.addEdge(vector<int>({ 0, 4 }));
+    piramidEdges.addEdge(vector<int>({ 1, 4 }));
+    piramidEdges.addEdge(vector<int>({ 2, 4 }));
+    piramidEdges.addEdge(vector<int>({ 3, 4 }));
+    piramidEdges.addEdge(vector<int>({ 0, 1 }));
+    piramidEdges.addEdge(vector<int>({ 0, 3 }));
+    piramidEdges.addEdge(vector<int>({ 1, 2 }));
+    piramidEdges.addEdge(vector<int>({ 2, 3 }));
+
+    return EdgeFigure(piramidPoints, piramidEdges);
+}
+
 EdgeFigure EdgeFigureUtil::getCube() {
     Matrix cubePoints(10, 4);
     setCubePoints(cubePoints);

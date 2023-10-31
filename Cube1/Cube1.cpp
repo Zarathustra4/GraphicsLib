@@ -7,6 +7,10 @@
 #include "EdgeFigureUtil.h"
 #include "GraphicDrawer3D.h"
 
+///////////////////////////////////////////
+//TODO: Make figures store color information
+///////////////////////////////////////////
+
 //------------------КОНСТАНТИ ТА ГЛОБАЛЬНІ ЗМІННІ-------------------------
 
 const int WIDTH = 800, HEIGHT = 800; //парметри вікна виводу
@@ -70,7 +74,7 @@ void display(void) {
 
 	glColor3d(1, 0, 0);
 	GraphicDrawer3D::drawEdgeFigure(
-		EdgeFigureUtil::getCube()
+		EdgeFigureUtil::getPiramid()
 	);
 	//glutSolidSphere(1, 50, 50);//сфера
 
